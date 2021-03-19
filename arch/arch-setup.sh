@@ -37,7 +37,7 @@ mkdir $ROOT_MOUNT/efi
 mount "$ROOT_DEVICE"1 $ROOT_MOUNT/efi
 
 # move network setup script to new partition
-mv network-setup /mnt/network-setup
+mv network-setup.sh /mnt/network-setup.sh
 
 # firmware/base installation
 pacstrap -i $ROOT_MOUNT base linux linux-firmware vim man-db sudo grub efibootmgr neofetch openssh --noconfirm
