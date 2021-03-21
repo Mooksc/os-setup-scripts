@@ -5,17 +5,19 @@ DEVICE=$(ls /sys/class/net | grep -v lo)
 NETWORK_CONFIG=/etc/systemd/network/20-wired.network
 RESOLVED_CONFIG=/etc/systemd/resolved.conf
 
-STATIC_IP=$1
-SUBNET_MASK=$2
-GATEWAY=$3
-DNS=$4
-DNS_FALLBACK=$5
+read -p "desired static IP address: " STATIC_IP
+read -p "network subnet mask (ex: /24): " SUBNET_MASK
+read -p "network gateway IP address: " GATEWAY
+read -p "desired DNS server: " DNS
+read -p "DNS fallback server: " DNS_FALLBACK
+read -p "hostname: " HOSTNAME
+
 
 # set hosts & hostname
-echo "arch-vm" > /etc/hostname &&
+echo "$HOSTNAME" > /etc/hostname &&
 echo "127.0.0.1 localhost" > /etc/hosts && \
 echo "::1 localhost" >> /etc/hosts && \
-echo "127.0.1.1 arch-vm.localdomain arch-vm" >> /etc/hosts
+echo "127.0.1.1 $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 
 # start network device
 ip link set $DEVICE up
