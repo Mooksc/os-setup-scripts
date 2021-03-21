@@ -1,17 +1,18 @@
 #!/bin.bash
 
-DEVICE=$(ls /sys/class/net | grep -v lo)
-
 NETWORK_CONFIG=/etc/systemd/network/20-wired.network
 RESOLVED_CONFIG=/etc/systemd/resolved.conf
+DEVICES=$(ls /sys/class/net | grep -v lo)
 
+echo "the following network devices are available:"
+echo $DEVICES
+read -p "enter the device to configure: " DEVICE
 read -p "desired static IP address: " STATIC_IP
 read -p "network subnet mask (ex: /24): " SUBNET_MASK
 read -p "network gateway IP address: " GATEWAY
 read -p "desired DNS server: " DNS
 read -p "DNS fallback server: " DNS_FALLBACK
 read -p "hostname: " HOSTNAME
-
 
 # set hosts & hostname
 echo "$HOSTNAME" > /etc/hostname &&
