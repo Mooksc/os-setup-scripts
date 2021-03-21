@@ -45,3 +45,12 @@ echo "Gateway=$GATEWAY" && echo "DNS=$DNS") > $NETWORK_CONFIG
 # resolved configuration
 ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 (echo "DNS=$DNS $DNS_FALLBACK" && echo "Domains=-.") >> $RESOLVED_CONFIG
+
+echo "reboot is required to finish configuration"
+while true; do
+    read -p "reboot system? (Yy/Nn): " REBOOT
+    if [ $REBOOT = "N" ] || [ $REBOOT = "n" ]; then break
+    elif [ $REBOOT = "Y" ] || [ $REBOOT = "y" ]; then reboot
+    elif [ $REBOOT != "Y" ] || [ $REBOOT != "y" ] || [ $REBOOT != "N" ] || [ $REBOOT != "n" ]; then
+    echo "invalid input!" ; fi
+done
